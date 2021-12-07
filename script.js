@@ -11,26 +11,23 @@ const port = process.env.PORT || 3000;
 const client = new MongoClient(process.env.FINAL_URL);
 const dbName = "session7";
 app.use(cors());
-
-
-// app.use(bodyParser.urlencoded({extended = true}));
 app.use(bodyParser.json());
-// app.use(cors());
+
 
 app.get('/', (req, res) => {
-    res.send('Get all challenges: /allChallenges ' + 'Post challenge: /saveChallenge ' + 'unfortunately the put and the delete does not work');
+    res.send('Getting a fetch call');
 
 })
 
-app.get('/allChallenges', async (req, res) => {
+app.get('/inputPlace', async (req, res) => {
     try {
         await client.connect();
         
         const db = client.db(dbName)
         const colli = db.collection('challenges');
-        const findChallenge = await colli.find({}).toArray();
+        const findStars = await colli.find({}).toArray();
 
-        res.status(200).send(findChallenge);
+        res.status(200).send(findStars);
        } catch (err) {
         console.log('get',err);
         res.status(500).send({
@@ -44,7 +41,7 @@ app.get('/allChallenges', async (req, res) => {
    }
 
 })
-app.post('/saveChallenge', async (req, res) => {
+app.post('/saveInputPlace', async (req, res) => {
     console.log(req.body)
 
 
@@ -78,14 +75,6 @@ app.post('/saveChallenge', async (req, res) => {
         await client.close();
     }
 })
-
-app.put('/allChallenges/:id', (req, res) => {
-    res.send('Update oki');
-});
-  
-app.delete('/allChallenges/:id', (req, res) => {
-    res.send('Delete oki');
-});
 
 app.listen(port, () => {
     console.log(`server started at http://localhost:${port}`)

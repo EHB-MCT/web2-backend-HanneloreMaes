@@ -51,12 +51,12 @@ app.post('/saveInputPlace', async (req, res) => {
         const db = client.db(dbName)
         const colli = db.collection('Sterreninfo');
 
-        let newChallenge = {
+        let newInput = {
             _id: req.body.id,
-            inputPlace: req.body.inputPlace
+            input: req.body.input           // achter .body => komt de naam van de parameter
         }
 
-        let insertResultChallenge = await colli.insertOne(newChallenge);
+        let insertResultChallenge = await colli.insertOne(newInput);
 
         res.status(201).json(newChallenge)
         return;

@@ -53,10 +53,7 @@ app.post('/saveInputPlace', async (req, res) => {
 
         let newChallenge = {
             _id: req.body.id,
-            name: req.body.name,
-            points: req.body.points,
-            course: req.body.course,
-            session: req.body.session
+            inputPlace: req.body.inputPlace
         }
 
         let insertResultChallenge = await colli.insertOne(newChallenge);

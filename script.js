@@ -49,7 +49,7 @@ app.post('/saveInputPlace', async (req, res) => {
         await client.connect();
 
         const db = client.db(dbName)
-        const colli = db.collection('challenges');
+        const colli = db.collection('Sterreninfo');
 
         let newChallenge = {
             _id: req.body.id,

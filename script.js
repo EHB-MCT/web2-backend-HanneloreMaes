@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 
 
 const client = new MongoClient(process.env.FINAL_URL);
-const dbName = "session7";
+const dbName = "Sterrenkijken";
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -24,7 +24,7 @@ app.get('/inputPlace', async (req, res) => {
         await client.connect();
         
         const db = client.db(dbName)
-        const colli = db.collection('challenges');
+        const colli = db.collection('Sterreninfo');
         const findStars = await colli.find({}).toArray();
 
         res.status(200).send(findStars);

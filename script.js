@@ -5,11 +5,14 @@ const {MongoClient} = require ('mongodb');
 require('dotenv').config();
 const cors = require('cors')
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 
-const client = new MongoClient('mongodb+srv://sterrenkijker:sterrenkijken@cluster0.q4mig.mongodb.net/sterrenkijker?retryWrites=true&w=majority');
-const dbName = "sterrenkijker";
+const client = new MongoClient(process.env.FINAL_URL, {
+    useNewUrlParser: true
+});
+
+const dbName = process.env.DBNAME;
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -46,6 +49,10 @@ app.get('/inputPlace', async (req, res) => {
 app.post('/saveInputPlace', async (req, res) => {
     console.log(req.body)
 
+    if(!req.body.input){
+        res.status(400).send('Bad request: missing id, name, genre, mechanisms or description');
+        return;
+    }
 
     try {
         await client.connect();

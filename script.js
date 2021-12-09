@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 
-const client = new MongoClient(process.env.FINAL_URL);
+const client = new MongoClient('mongodb+srv://sterrenkijker:sterrenkijken@cluster0.q4mig.mongodb.net/sterrenkijker?retryWrites=true&w=majority');
 const dbName = "sterrenkijker";
 app.use(cors());
 app.use(bodyParser.json());

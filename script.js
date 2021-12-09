@@ -12,6 +12,7 @@ const client = new MongoClient(process.env.FINAL_URL);
 const dbName = "sterrenkijker";
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended = true}))
 
 app.use(express.static("public"));
 

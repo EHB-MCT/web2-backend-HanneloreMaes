@@ -12,8 +12,8 @@ const client = new MongoClient(process.env.FINAL_URL);
 const dbName = "sterrenkijker";
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static("public"));
 
+app.use(express.static("public"));
 
 app.get('/', (req, res) => {
     res.redirect("/info.html");

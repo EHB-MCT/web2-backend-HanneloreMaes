@@ -25,7 +25,7 @@ app.get('/inputPlace', async (req, res) => {
         await client.connect();
         
         const db = client.db(dbName)
-        const colli = db.collection('sterrenkijker');
+        const colli = db.collection('sterrenkijkenCollection');
         const findStars = await colli.find({}).toArray();
 
         res.status(200).send(findStars);
@@ -51,7 +51,7 @@ app.post('/saveInputPlace', async (req, res) => {
         await client.connect();
 
         const db = client.db(dbName)
-        const colli = db.collection('sterrenkijker');
+        const colli = db.collection('sterrenkijkenCollection');
 
         let newInput = {
             _id: req.body.id,

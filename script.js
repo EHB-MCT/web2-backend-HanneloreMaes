@@ -60,6 +60,12 @@ app.post('/saveInputPlace', async (req, res) => {
         const db = client.db(dbName)
         const colli = db.collection('sterrenkijkenCollection');
 
+        const place = await colli.findOne({_id: req.body.id});
+        if(place){
+            res.status(400).send('Bad request: inputPlace already excists ' + req.body.id);
+            return;
+        } 
+
         let newInput = {
             _id: req.body.id,
             input: req.body.input           // achter .body => komt de naam van de parameter

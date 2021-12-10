@@ -60,9 +60,9 @@ app.post('/saveInputPlace', async (req, res) => {
         const db = client.db(dbName)
         const colli = db.collection('sterrenkijkenCollection');
 
-        const place = await colli.findOne({_id: req.body.id});
+        const place = await colli.findOne({input: req.body.input});
         if(place){
-            res.status(400).send('Bad request: inputPlace already excists ' + req.body.id);
+            res.status(400).send('Bad request: inputPlace already excists ' + req.body.input);
             return;
         } 
 

@@ -49,8 +49,11 @@ app.get('/inputPlace', async (req, res) => {
 app.post('/saveInputPlace', async (req, res) => {
     console.log(req.body)
 
+    const error = {error: "Bad request",
+                   value: "Missing input Place to save"}
+
     if(!req.body.input){
-        res.status(400).send('Bad request: missing id, name, genre, mechanisms or description');
+        res.status(400).send(error);
         return;
     }
 
@@ -87,6 +90,81 @@ app.post('/saveInputPlace', async (req, res) => {
         await client.close();
     }
 })
+
+app.delete('/deleteInput/:input', async (req, res) => {
+
+    const error = {error: "Bad request",
+                   value: "Missing input Place to delete"}
+
+    if (!req.params.input) {
+        res.status(400).send(error);
+        return;
+    }
+    try {
+
+        await client.connect();
+        const db = client.db(dbName);
+        const colli = db.collection("sterrenkijkenCollection");
+     
+        const deleteQuery = { input: req.body.input };
+        const deleteMessage = { deleted: "Input place is deleted"}
+
+        const result = await colli.deleteOne(query);
+        if (result.deletedCount === 1 ) {
+        res
+            .status(200)
+            .send(deleteMessage);
+        } else {
+        res
+            .status(404)
+            .send("No input Place is deleted.");
+        }
+    }catch (err) {
+        console.log('post',err);
+        res.status(500).send({
+            err: 'Something went wrong. Try again',
+            value: err
+        })
+    } finally {
+        await client.close();
+    }
+})
+
+app.put("/updateInput/:input", async (req, res) => {
+
+    const error = {error: "Bad request",
+                   value: "Missing input Place to update"}
+
+    if ( !req.body.input) {
+      res.status(400).send(error);
+      return;
+    }
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        const colli = db.collection("sterrenkijkenCollection");
+
+        const updateQuery = { input: req.body.input };
+        const updateMessage = { deleted: "Input place is updated"}
+
+      const updateInput = {
+          input: req.body.input
+      };
+
+      const result = await colli.updateOne(updateQuery, {$set: updateInput});             //$set vervangt de waarde van het veld met de aangepaste waarde
+      res.status(201).send(result);
+      
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        error: "something went wrong",
+        value: error,
+      });
+    } finally {
+      await client.close();
+    }
+  });
+
 
 app.listen(port, () => {
     console.log(`server started at http://localhost:${port}`)

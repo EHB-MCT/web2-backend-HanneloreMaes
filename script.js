@@ -133,9 +133,9 @@ app.delete('/deleteInput/:id', async (req, res) => {
 app.put("/updateInput/:id", async (req, res) => {
 
     const error = {error: "Bad request",
-                   value: "Missing input Place to update"}
+                   value: "Missing name of place to update"}
 
-    if ( !req.body.input) {
+    if (!req.body.input) {
       res.status(400).send(error);
       return;
     }
@@ -148,7 +148,7 @@ app.put("/updateInput/:id", async (req, res) => {
         const updateMessage = { deleted: "Input place is updated"}
 
       const updateInput = {
-          input: req.body.input
+          input: req.body.newCityName
       };
 
       const result = await colli.updateOne(updateQuery, {$set: updateInput});             //$set vervangt de waarde van het veld met de aangepaste waarde

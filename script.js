@@ -153,7 +153,7 @@ app.put('/updateInput/:id', async (req, res) => {
       };
 
       const result = await colli.updateOne(updateQuery, {$set: updateInput});             //$set vervangt de waarde van het veld met de aangepaste waarde
-      res.status(201).send(result);
+      res.status(201).send(updateInput);
       
     } catch (error) {
       console.log(error);

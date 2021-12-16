@@ -135,7 +135,7 @@ app.put('/updateInput/:id', async (req, res) => {
     const error = {error: "Bad request",
                    value: "Missing name of place to update"}
 
-    if (!req.body.id) {
+    if (!req.body.input) {
       res.status(400).send(error);
       return;
     }
@@ -145,7 +145,7 @@ app.put('/updateInput/:id', async (req, res) => {
         const colli = db.collection("sterrenkijkenCollection");
 
         const updateQuery = { input: req.body.input };
-        const updateMessage = { deleted: "Input place is updated"}
+        const updateMessage = { updated: "Input place is updated"}
 
       const updateInput = {
           input: req.body.input

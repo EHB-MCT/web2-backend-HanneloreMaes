@@ -148,7 +148,7 @@ app.put('/updateInput/:id', async (req, res) => {
         const updateMessage = { updated: "Input place is updated"}
 
       const updateInput = {
-          id: req.body._id,
+          _id: req.body._id,
           input: req.body.input
       };
 

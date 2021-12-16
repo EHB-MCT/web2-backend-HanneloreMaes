@@ -91,7 +91,7 @@ app.post('/saveInputPlace', async (req, res) => {
     }
 })
 
-app.delete('/deleteInput/id', async (req, res) => {
+app.delete('/deleteInput/:id', async (req, res) => {
 
     const error = {error: "Bad request",
                    value: "Missing id of place to delete"}
@@ -106,7 +106,7 @@ app.delete('/deleteInput/id', async (req, res) => {
         const db = client.db(dbName);
         const colli = db.collection("sterrenkijkenCollection");
      
-        const deleteQuery = { input: req.body.id };
+        const deleteQuery = { id: req.body.id };
         const deleteMessage = { deleted: "Input place is deleted"}
 
         const result = await colli.deleteOne(query);
@@ -130,7 +130,7 @@ app.delete('/deleteInput/id', async (req, res) => {
     }
 })
 
-app.put('/updateInput/id', async (req, res) => {
+app.put('/updateInput/:id', async (req, res) => {
 
     const error = {error: "Bad request",
                    value: "Missing name of place to update"}
@@ -148,7 +148,7 @@ app.put('/updateInput/id', async (req, res) => {
         const updateMessage = { deleted: "Input place is updated"}
 
       const updateInput = {
-          input: req.body.newCityName
+          input: req.body.input
       };
 
       const result = await colli.updateOne(updateQuery, {$set: updateInput});             //$set vervangt de waarde van het veld met de aangepaste waarde

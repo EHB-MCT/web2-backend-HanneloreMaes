@@ -130,7 +130,7 @@ app.delete('/deleteInput/:id', async (req, res) => {
     }
 })
 
-app.put("/updateInput/id", async (req, res) => {
+app.put("/updateInput/:id", async (req, res) => {
 
     const error = {error: "Bad request",
                    value: "Missing name of place to update"}

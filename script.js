@@ -135,7 +135,7 @@ app.put('/updateInput/:id', async (req, res) => {
     const error = {error: "Bad request",
                    value: "Missing name of place to update"}
 
-    if (!req.body.input) {
+    if (!req.body.id) {
       res.status(400).send(error);
       return;
     }

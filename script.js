@@ -106,7 +106,7 @@ app.delete('/deleteInput/id', async (req, res) => {
         const db = client.db(dbName);
         const colli = db.collection("sterrenkijkenCollection");
      
-        const deleteQuery = { input: req.body.input };
+        const deleteQuery = { input: req.body.id };
         const deleteMessage = { deleted: "Input place is deleted"}
 
         const result = await colli.deleteOne(query);
@@ -135,7 +135,7 @@ app.put('/updateInput/id', async (req, res) => {
     const error = {error: "Bad request",
                    value: "Missing name of place to update"}
 
-    if (!req.body.id) {
+    if (!req.body.input) {
       res.status(400).send(error);
       return;
     }

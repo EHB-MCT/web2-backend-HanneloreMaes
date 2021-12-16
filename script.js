@@ -157,7 +157,7 @@ app.put('/updateInput/:id', async (req, res) => {
     } catch (error) {
       console.log(error);
       res.status(500).send({
-        error: "something went wrong",
+        error: "Something went wrong. Try again",
         value: error,
       });
     } finally {

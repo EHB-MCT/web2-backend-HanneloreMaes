@@ -106,7 +106,7 @@ app.delete('/deleteInput/:id', async (req, res) => {
         const db = client.db(dbName);
         const colli = db.collection("sterrenkijkenCollection");
      
-        const deleteQuery = { id: req.params.id };
+        const deleteQuery = {_id: ObjectId(req.params.id)};
         const deleteMessage = { deleted: "Input place is deleted"}
 
         const result = await colli.deleteOne(query);
@@ -145,15 +145,17 @@ app.put('/updateInput/:id/:input', async (req, res) => {
         const colli = db.collection("sterrenkijkenCollection");
 
         console.log(req.params.input);
-        const updateQuery = { input: req.params.input };
+        const searchEngine = {_id: ObjectId(req.params.id)};                                        // zoekt/filter op die waarde van de input (vb: find en update samen)
         const updateMessage = { updated: "Input place is updated"}
 
+        // nodig van ObjectId bovenaan anders wordt da object opgestuurd ipv de waarde 
       const updateInput = {
-          _id: ObjectId(req.params.id),                                                   // nodig van ObjectId bovenaan anders wordt da object opgestuurd ipv de waarde 
-          input: req.params.input
+          $set: {
+              input: req.params.input                                                       // input achter params zoekt naar de input waarde uit de url
+          }
       };
 
-      const result = await colli.updateOne(updateQuery, {$set: updateInput});             //$set vervangt de waarde van het veld met de aangepaste waarde
+      const result = await colli.updateOne(searchEngine, updateInput);           //$set vervangt de waarde van het veld met de aangepaste waarde
       res.status(201).send(updateInput);
       
     } catch (error) {

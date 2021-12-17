@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs/promises');
 const bodyParser = require('body-parser');
-const {MongoClient} = require ('mongodb');
+const {MongoClient, ObjectId} = require ('mongodb');
 require('dotenv').config();
 const cors = require('cors')
 const app = express();
@@ -149,7 +149,7 @@ app.put('/updateInput/:id/:input', async (req, res) => {
         const updateMessage = { updated: "Input place is updated"}
 
       const updateInput = {
-          _id: req.params._id,
+          _id: ObjectId(req.params.id),                                                   // nodig van ObjectId bovenaan anders wordt da object opgestuurd ipv de waarde 
           input: req.params.input
       };
 

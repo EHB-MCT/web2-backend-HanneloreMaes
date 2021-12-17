@@ -144,6 +144,7 @@ app.put('/updateInput/:id/:input', async (req, res) => {
         const db = client.db(dbName);
         const colli = db.collection("sterrenkijkenCollection");
 
+        console.log(req.params.input);
         const updateQuery = { input: req.params.input };
         const updateMessage = { updated: "Input place is updated"}
 

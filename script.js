@@ -109,7 +109,7 @@ app.delete('/deleteInput/:id', async (req, res) => {
         const deleteQuery = {_id: ObjectId(req.params.id)};
         const deleteMessage = { deleted: "Input place is deleted"}
 
-        const result = await colli.deleteOne(query);
+        const result = await colli.deleteOne(deleteQuery);
         if (result.deletedCount === 1 ) {
         res
             .status(200)
